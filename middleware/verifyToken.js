@@ -3,19 +3,36 @@ require('dotenv').config();
 
 exports.verifyToken = async (req, res, next) => {
     // console.log(req.cookies['access_token']);
+    // try {
 
-    if (req.cookies['access_token'] ) {
+
+    if (req.cookies['access_token']) {
+
+        var dateNow = new Date();
+        const decodedToken = jwt.decode(req.cookies['access_token']);
+        console.log(decodedToken.exp)
+        console.log(dateNow.getTime() / 1000)
+
+
+        if (decodedToken.exp < dateNow.getTime() / 1000) {
+            return res.json(
+                {
+                    success: false,
+                    messege: "Invalid Token"
+                }).clearCookie;
+        }
 
         const token = req.cookies['access_token'];
-        // console.log(token)
         const isavail = jwt.verify(token, process.env.JWT_SECRET);
         if (isavail) {
             console.log("Token verified")
             next();
-
         }
         else {
-            console.log("Invalid Token")
+            res.json({
+                success: false,
+                message: "Invalid token",
+            })
         }
     }
     else {
@@ -24,6 +41,15 @@ exports.verifyToken = async (req, res, next) => {
             message: "Token not found",
         })
     }
+    // }
+    // catch {
+    //     console.log("cathced");
+    //     res.json({
+    //         success: false,
+    //         message: "Invalid token",
+    //     })
+
+    // }
 
 }
 

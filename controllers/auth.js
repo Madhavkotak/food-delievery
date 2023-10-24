@@ -45,7 +45,7 @@ exports.logIn = async (req, res) => {
             console.log("User is already logged in");
             return res.cookie("access_token", alreadyLogged, {
                 httpOnly: true,
-                secure: false
+                secure: false,
             }).json({
                 messege: "User is already logged in",
                 cookie: alreadyLogged
@@ -75,12 +75,12 @@ exports.logIn = async (req, res) => {
         }
         else {
             console.log("Password is correct")
-            const token = await jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '2h' });
+            const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '10s' });
 
 
             res.cookie("access_token", token, {
                 httpOnly: true,
-                secure: false
+                secure: false,
             }).status(200).json({
                 sucess: true,
                 data: exist,
