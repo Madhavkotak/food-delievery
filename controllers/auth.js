@@ -1,12 +1,13 @@
 const user = require("../models/user");
+
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 exports.signUp = async (req, res) => {
     try {
 
-        const { firstName, lastName, email, password, phoneNumber } = req.body;
+        let { firstName, lastName, email, password, phoneNumber } = req.body;
         const exist = await user.find({ email: req.body.email });
-        console.log(exist)
+        // console.log(exist)
         if (exist.length > 0) {
 
             res.status(400).json({
@@ -15,7 +16,11 @@ exports.signUp = async (req, res) => {
             });
         }
         else {
-            const newUser = await user.create({ firstName, lastName, email, password, phoneNumber });
+            password = await bcrypt.hash(password, 10);
+            const newUser = await user.create({
+                firstName, lastName, email,
+                password, phoneNumber
+            });
 
             res.status(200).json({
                 sucess: true,
@@ -91,7 +96,7 @@ exports.logIn = async (req, res) => {
 
 exports.logOut = async (req, res) => {
     try {
-        res.clearCookies('access_token');
+        res.clearCookie('access_token');
         res.json(req.cookies)
 
     }

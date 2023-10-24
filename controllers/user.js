@@ -34,19 +34,21 @@ const bcrypt = require('bcrypt');
 exports.getInfo = async (req, res) => {
     try {
 
-        const name = req.body.firstName;
-        const found = user.find({ firstName: name });
-        if (!found) {
+
+        const useremail = req.body.email;
+        const found = await user.findOne({ email: "kotakmadhav94@gmail.com" });
+
+        if (found.length) {
 
             res.json({
 
-                data: found
+                success: false
             })
         }
         else {
             res.json({
                 success: true,
-                // data:found,
+                data: found,
             });
         }
     }
