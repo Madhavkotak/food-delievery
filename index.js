@@ -34,7 +34,7 @@ app.use("/api/version1", orderRoutes);
 
 //default 
 app.get("/", (req, res) => {
-    res.send("Wah madhav wah");
+    res.send("Hell world");
 })
 
 
