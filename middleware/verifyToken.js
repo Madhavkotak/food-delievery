@@ -18,7 +18,7 @@ exports.verifyToken = async (req, res, next) => {
             return res.json(
                 {
                     success: false,
-                    messege: "Invalid Token"
+                    messege: "Token expired"
                 }).clearCookie;
         }
 

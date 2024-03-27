@@ -22,6 +22,7 @@ const restaurantRoutes = require("./routes/restaurantRoutes")
 const addressRoutes = require("./routes/addressRoutes")
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoutes");
+const orderRoutes = require("./routes/orderRoutes")
 
 //mounting of api
 app.use('/api/version1', foodroutes);
@@ -29,6 +30,7 @@ app.use('/api/version1', restaurantRoutes);
 app.use("/api/version1", addressRoutes);
 app.use("/api/version1", userRoutes);
 app.use("/api/version1", authRoutes);
+app.use("/api/version1", orderRoutes);
 
 //default 
 app.get("/", (req, res) => {

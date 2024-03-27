@@ -56,7 +56,7 @@ exports.updatePrice = async (req, res) => {
     try {
         const id = req.param('id');
         const newPrice = req.param('price');
-        const updated = await foodItem.findOneAndUpdate({ _id: id }, { price: newPrice }, {new : true});
+        const updated = await foodItem.findOneAndUpdate({ _id: id }, { price: newPrice }, { new: true });
         res.status(200).json({
             success: true,
             data: updated,
@@ -68,3 +68,4 @@ exports.updatePrice = async (req, res) => {
         console.log(`An error occured while updating price of food item ${err}`);
     }
 }
+

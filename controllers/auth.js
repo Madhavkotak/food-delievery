@@ -66,7 +66,7 @@ exports.logIn = async (req, res) => {
         console.log(verifyPassword);
         if (!verifyPassword) {
             console.log("Password is wrong. Please try again..");
-            // process.exit(1);
+            
             res.status(401).json({
                 success: false,
                 message: "Password is incorrect please try again"
@@ -75,7 +75,7 @@ exports.logIn = async (req, res) => {
         }
         else {
             console.log("Password is correct")
-            const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '10s' });
+            const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: '2h' });
 
 
             res.cookie("access_token", token, {
